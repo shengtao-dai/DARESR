@@ -4,12 +4,18 @@ Distributionally Adaptive Regression Estimator under Series Expansion
 ## Installation
 
 ```r
-# Install devtools if needed
-# install.packages("devtools")
+# Option 1: pak (recommended)
+install.packages("pak")
+pak::pak("shengtao-dai/DARESR")
 
-devtools::install_local("DARESR", upgrade = "never")
-# or build first:
-# devtools::build("DARESR"); devtools::install("DARESR_0.1.0.tar.gz")
+# Option 2: remotes
+install.packages("remotes")
+remotes::install_github("shengtao-dai/DARESR")
+
+# Option 3: devtools
+install.packages("devtools")
+devtools::install_github("shengtao-dai/DARESR")
+
 ```
 
 ## Usage
