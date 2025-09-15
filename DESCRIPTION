@@ -1,0 +1,19 @@
+Package: DARESR
+Type: Package
+Title: Distributional Adaptive Regression Estimator under Series
+        Expansion
+Version: 0.1.0
+Authors@R: c(person(given = "Shengtao", family = "Dai", role = c("aut", "cre"), email = "shengtao.dai@bc.edu"))
+Description: Implements a distributional adaptive regression estimator that combines
+    multiple series quantile estimates with data-driven weights.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 3.6)
+Imports: quantreg, matrixStats, splines, stats
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3
+NeedsCompilation: no
+Packaged: 2025-08-31 19:37:19 UTC; daishengtao
+Author: Shengtao Dai [aut, cre]
+Maintainer: Shengtao Dai <shengtao.dai@bc.edu>
+RoxygenNote: 7.3.2
