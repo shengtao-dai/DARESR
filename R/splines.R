@@ -1,6 +1,6 @@
 construct_bs_basis <- function(X, p, degree) {
   delta <- 10^(-320)
-  if (is.vector(X)) X <- matrix(X, nrow = 1)   # ★ 关键修复：1×d，而不是 d×1
+  if (is.vector(X)) X <- matrix(X, nrow = 1)  
   n <- nrow(X); d <- ncol(X)
   f <- p - 1 + degree
   X_bs <- matrix(0, nrow = n, ncol = d * f)
@@ -17,7 +17,7 @@ construct_bs_basis <- function(X, p, degree) {
 
 
 get_knots_info <- function(X, p, degree) {
-  if (is.vector(X)) X <- matrix(X, nrow = 1)   # 容错
+  if (is.vector(X)) X <- matrix(X, nrow = 1)   
   d <- ncol(X)
   delta <- 10^(-320)
   knots_list <- vector("list", d)
@@ -34,7 +34,7 @@ get_knots_info <- function(X, p, degree) {
 
 
 construct_bs_given_knots <- function(X, p, degree, knots_info) {
-  if (is.vector(X)) X <- matrix(X, nrow = 1)   # ★ 关键修复
+  if (is.vector(X)) X <- matrix(X, nrow = 1)   
   n <- nrow(X); d <- ncol(X)
   f <- p - 1 + degree
   X_bs <- matrix(0, nrow = n, ncol = d * f)
