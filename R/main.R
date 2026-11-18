@@ -31,8 +31,8 @@ series_eq_estimate <- function(Y, X, x0, p, degree, c_band = 1.0, K_grid, L = 5)
   M2 <- sum(x0_bs^2)
   cov_hat            <- sqrt(n * deno_w / M2)
   cov_hat_series_eq  <- 1 / cov_hat
-  m_hat_series_eq_up <- m_hat_series_eq + 1.96 / cov_hat_series_eq
-  m_hat_series_eq_lo <- m_hat_series_eq - 1.96 / cov_hat_series_eq
+  m_hat_series_eq_up <- m_hat_series_eq + 1.96 * cov_hat_series_eq
+  m_hat_series_eq_lo <- m_hat_series_eq - 1.96 * cov_hat_series_eq
   
   list(
     m_hat_series_eq        = m_hat_series_eq,
