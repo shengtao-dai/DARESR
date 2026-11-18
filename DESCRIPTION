@@ -2,7 +2,7 @@ Package: DARESR
 Type: Package
 Title: Distributional Adaptive Regression Estimator under Series Expansion
 Version: 0.1.1
-Authors@R: person("Shengtao", "Dai", email = "shengtao.dai@bc.edu", role = c("aut", "cre"))
+Authors@R: person("Shengtao", "Dai", email = "shengtao.dai@outlook.com", role = c("aut", "cre"))
 Description: Implements the series (B-spline) version of the distributionally
     adaptive regression estimator (DARE) of Dai (2025)
     <https://ssrn.com/abstract=5683602>. Conditional quantiles are estimated by
