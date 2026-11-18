@@ -1,19 +1,23 @@
 Package: DARESR
 Type: Package
-Title: Distributional Adaptive Regression Estimator under Series
-        Expansion
-Version: 0.1.0
-Authors@R: c(person(given = "Shengtao", family = "Dai", role = c("aut", "cre"), email = "shengtao.dai@bc.edu"))
-Description: Implements a distributional adaptive regression estimator that combines
-    multiple series quantile estimates with data-driven weights.
+Title: Distributional Adaptive Regression Estimator under Series Expansion
+Version: 0.1.1
+Authors@R: person("Shengtao", "Dai", email = "shengtao.dai@bc.edu", role = c("aut", "cre"))
+Description: Implements the series (B-spline) version of the distributionally
+    adaptive regression estimator (DARE) of Dai (2025)
+    <https://ssrn.com/abstract=5683602>. Conditional quantiles are estimated by
+    quantile regression on a B-spline basis using 'quantreg', and the
+    conditional mean at a target point is estimated by combining them with
+    weights from the inverse of their estimated asymptotic covariance matrix,
+    with the number of quantiles chosen by cross-validation. This keeps the
+    estimator efficient when errors are heavy-tailed or non-Gaussian.
 License: MIT + file LICENSE
-Encoding: UTF-8
+URL: https://github.com/shengtao-dai/DARESR, https://shengtao-dai.github.io/DARESR/
+BugReports: https://github.com/shengtao-dai/DARESR/issues
 Depends: R (>= 3.6)
-Imports: quantreg, matrixStats, splines, stats
+Imports: quantreg, splines, stats
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
-NeedsCompilation: no
-Packaged: 2025-08-31 19:37:19 UTC; daishengtao
-Author: Shengtao Dai [aut, cre]
-Maintainer: Shengtao Dai <shengtao.dai@bc.edu>
-RoxygenNote: 7.3.2
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.1

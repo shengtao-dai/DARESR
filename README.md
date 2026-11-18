@@ -1,30 +1,82 @@
 # DARESR
 
-Distributionally Adaptive Regression Estimator under Series Expansion
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/shengtao-dai/DARESR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/shengtao-dai/DARESR/actions/workflows/R-CMD-check.yaml)
+[![r-universe](https://shengtao-dai.r-universe.dev/badges/DARESR)](https://shengtao-dai.r-universe.dev/DARESR)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/shengtao-dai/DARESR/blob/main/LICENSE.md)
+<!-- badges: end -->
+
+Distributionally Adaptive Regression Estimator under Series Expansion.
+
+## Overview
+
+Least squares regression can be very inefficient when the error distribution is far from Gaussian, for example with heavy tails or outliers. The **distributionally adaptive regression estimator (DARE)** of [Dai (2025)](https://ssrn.com/abstract=5683602) estimates the conditional mean $E[Y \mid X = x_0]$ as a weighted combination of conditional quantiles at the levels $k/(K+1)$, $k = 1, \dots, K$. The weights adapt to the unknown error distribution, and the number of quantiles $K$ is chosen by cross-validation. Under regularity conditions DARE attains the asymptotic variance of the infeasible likelihood-based estimator while keeping the convergence rate of conventional estimators.
+
+`DARESR` implements the **series (B-spline)** version of DARE. Each covariate is expanded in a B-spline basis, conditional quantiles are fitted by quantile regression ([quantreg](https://CRAN.R-project.org/package=quantreg)), and the quantiles are combined with weights from the inverse of their estimated asymptotic covariance matrix. The estimate comes with a standard error and a 95% confidence interval.
+
+Documentation: <https://shengtao-dai.github.io/DARESR/>
+
 ## Installation
 
 ```r
-# Option 1: pak (recommended)
-install.packages("pak")
+# From r-universe (no compiler needed)
+install.packages("DARESR", repos = c("https://shengtao-dai.r-universe.dev", "https://cloud.r-project.org"))
+
+# Or the development version from GitHub
+# install.packages("pak")
 pak::pak("shengtao-dai/DARESR")
-
-# Option 2: remotes
-install.packages("remotes")
-remotes::install_github("shengtao-dai/DARESR")
-
-# Option 3: devtools
-install.packages("devtools")
-devtools::install_github("shengtao-dai/DARESR")
-
 ```
 
-## Usage
+## Example
 
 ```r
 library(DARESR)
 
-#Suppose Y (numeric), X (matrix/data.frame), and x0 (numeric vector)
-res <- series_eq_estimate(Y, X, x0, p = 4, degree = 4, c_band = 1.0, K_grid = c(1,4,9), L = 5)
-str(res)
+# Simulated data with heavy-tailed (t, 3 df) errors; the true m(0, 0) is 0.5
+set.seed(123)
+n <- 500
+X <- cbind(rnorm(n), rnorm(n))
+Y <- as.numeric(0.5 + X %*% c(1, -1) + rt(n, df = 3))
+
+res <- series_eq_estimate(Y, X, x0 = c(0, 0), p = 4, degree = 4,
+                          K_grid = c(1, 3), L = 2)
+unlist(res)
+#>       m_hat_series_eq     cov_hat_series_eq m_hat_series_eq_lower
+#>            0.35851451            0.14271055            0.07880183
+#> m_hat_series_eq_upper
+#>            0.63822719
 ```
 
+## Main functions
+
+| Function | Purpose |
+|---|---|
+| `series_eq_estimate()` | DARE estimate of E[Y \| X = x0], with standard error and 95% CI |
+
+## Related packages
+
+- [DARELL](https://github.com/shengtao-dai/DARELL): DARE with local linear regression
+- [DARERF](https://github.com/shengtao-dai/DARERF): DARE with random forests
+- [DARESR](https://github.com/shengtao-dai/DARESR): DARE with series (B-spline) expansion (this package)
+
+## Citation
+
+If you use `DARESR` in your work, please cite:
+
+> Dai, S. (2025). *Distributionally Adaptive Regression Estimators*. Working paper. <https://ssrn.com/abstract=5683602>
+
+```bibtex
+@unpublished{dai2025dare,
+  title  = {Distributionally Adaptive Regression Estimators},
+  author = {Dai, Shengtao},
+  year   = {2025},
+  note   = {Working paper, SSRN 5683602},
+  url    = {https://ssrn.com/abstract=5683602}
+}
+```
+
+You can also run `citation("DARESR")` in R.
+
+## License
+
+MIT © Shengtao Dai
